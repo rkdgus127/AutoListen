@@ -1,5 +1,6 @@
 package rkdgus;
 
+import org.bukkit.event.EventHandler;
 import rkdgus.Command.AutoListenCommand;
 import rkdgus.Listener.craftBukkit;
 import org.bukkit.event.HandlerList;
@@ -35,17 +36,11 @@ public final class AutoListen extends JavaPlugin implements Listener {
     public void onEnable() {
         instance = this;
 
-        this.getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(this, this);
 
         AutoListenCommand command = new AutoListenCommand(this);
-        this.getCommand("listen").setExecutor(command);
-        this.getCommand("listen").setTabCompleter(command);
-
-        for (Plugin plugin : this.getServer().getPluginManager().getPlugins()) {
-            if (plugin != this && plugin.isEnabled()) {
-                this.getServer().getPluginManager().disablePlugin(plugin);
-            }
-        }
+        getCommand("listen").setExecutor(command);
+        getCommand("listen").setTabCompleter(command);
     }
 
     @Override
@@ -66,13 +61,6 @@ public final class AutoListen extends JavaPlugin implements Listener {
         return instance;
     }
 
-    @org.bukkit.event.EventHandler
-    public void onPluginEnable(PluginEnableEvent event) {
-        Plugin plugin = event.getPlugin();
-        if (plugin != this) {
-            scan(plugin);
-        }
-    }
 
     @org.bukkit.event.EventHandler
     public void onPluginDisable(PluginDisableEvent event) {
@@ -82,7 +70,11 @@ public final class AutoListen extends JavaPlugin implements Listener {
         }
     }
 
-    private void scan(Plugin plugin) {
+    public boolean isRegistered(Plugin plugin) {
+        return registered.containsKey(plugin);
+    }
+
+    public void scan(Plugin plugin) {
         if (!plugin.isEnabled() || scanned.contains(plugin)) {
             return;
         }
@@ -166,7 +158,7 @@ public final class AutoListen extends JavaPlugin implements Listener {
                 && !className.endsWith(".package-info");
     }
 
-    private void unregister(Plugin plugin) {
+    public void unregister(Plugin plugin) {
         scanned.remove(plugin);
         List<Listener> listeners = registered.remove(plugin);
         if (listeners == null) {

@@ -21,7 +21,7 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 2) {
-            sender.sendMessage("§c사용법: /listen <start|stop|reload> <플러그인명>");
+            sender.sendMessage("§c사용법: /listen <start|stop|enable|disable|reload> <플러그인명>");
             return true;
         }
 
@@ -41,23 +41,45 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
         try {
             switch (action) {
                 case "start" -> {
-                    if (target.isEnabled()) {
-                        sender.sendMessage("§e이미 실행 중인 플러그인입니다.");
-                    } else if (plugin.startPlugin(target)) {
-                        sender.sendMessage("§a" + target.getName() + " 플러그인을 시작했습니다.");
-                    } else {
-                        sender.sendMessage("§c플러그인 시작에 실패했습니다.");
-                    }
-                }
-                case "stop" -> {
                     if (!target.isEnabled()) {
-                        sender.sendMessage("§e이미 종료된 플러그인입니다.");
-                    } else if (plugin.stopPlugin(target)) {
-                        sender.sendMessage("§a" + target.getName() + " 플러그인을 종료했습니다.");
+                        sender.sendMessage("§c플러그인이 비활성화되어 있습니다.");
+                    } else if (plugin.isRegistered(target)) {
+                        sender.sendMessage("§e이미 리스너가 실행 중입니다.");
                     } else {
-                        sender.sendMessage("§c플러그인 종료에 실패했습니다.");
+                        plugin.scan(target);
+                        sender.sendMessage("§a" + target.getName() + " 리스너를 시작했습니다.");
                     }
                 }
+
+                case "stop" -> {
+                    if (!plugin.isRegistered(target)) {
+                        sender.sendMessage("§e이미 리스너가 중지되어 있습니다.");
+                    } else {
+                        plugin.unregister(target);
+                        sender.sendMessage("§a" + target.getName() + " 리스너를 중지했습니다.");
+                    }
+                }
+
+                case "enable" -> {
+                    if (target.isEnabled()) {
+                        sender.sendMessage("§e이미 활성화된 플러그인입니다.");
+                    } else if (plugin.startPlugin(target)) {
+                        sender.sendMessage("§a" + target.getName() + " 플러그인을 활성화했습니다.");
+                    } else {
+                        sender.sendMessage("§c플러그인 활성화에 실패했습니다.");
+                    }
+                }
+
+                case "disable" -> {
+                    if (!target.isEnabled()) {
+                        sender.sendMessage("§e이미 비활성화된 플러그인입니다.");
+                    } else if (plugin.stopPlugin(target)) {
+                        sender.sendMessage("§a" + target.getName() + " 플러그인을 비활성화했습니다.");
+                    } else {
+                        sender.sendMessage("§c플러그인 비활성화에 실패했습니다.");
+                    }
+                }
+
                 case "reload" -> {
                     if (plugin.reloadPlugin(target)) {
                         sender.sendMessage("§a" + target.getName() + " 플러그인을 리로드했습니다.");
@@ -65,7 +87,8 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
                         sender.sendMessage("§c플러그인 리로드에 실패했습니다.");
                     }
                 }
-                default -> sender.sendMessage("§c사용법: /listen <start|stop|reload> <플러그인명>");
+
+                default -> sender.sendMessage("§c사용법: /listen <start|stop|enable|disable|reload> <플러그인명>");
             }
         } catch (Throwable exception) {
             sender.sendMessage("§c플러그인 처리 중 오류가 발생했습니다: " + exception.getClass().getSimpleName());
@@ -81,7 +104,7 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
         String current = args[args.length - 1].toLowerCase(Locale.ROOT);
 
         if (args.length == 1) {
-            for (String action : List.of("start", "stop", "reload")) {
+            for (String action : List.of("start", "stop", "enable", "disable", "reload")) {
                 if (action.startsWith(current)) {
                     completions.add(action);
                 }
@@ -89,6 +112,7 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
         } else if (args.length == 2) {
             for (Plugin target : plugin.getServer().getPluginManager().getPlugins()) {
                 String name = target.getName();
+
                 if (target != plugin && name.toLowerCase(Locale.ROOT).startsWith(current)) {
                     completions.add(name);
                 }
