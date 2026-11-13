@@ -34,6 +34,7 @@ AutoListen은 Paper 서버에서 리스너 등록을 자동화하기 위해 제�
 
 - **자동 리스너 등록** — `craftBukkit`을 상속한 클래스를 자동으로 탐색합니다.
 - **수동 등록 불필요** — `registerEvents()`를 직접 호출할 필요가 없습니다.
+- **편리한 인스턴트** - '이제 메인 클래스에서 인스턴트를 지원을 할 필요가 없습니다.
 - **플러그인 관리** — 명령어로 플러그인을 시작, 종료, 리로드할 수 있습니다.
 - **간편한 적용** — 기존 Paper 플러그인에도 쉽게 적용할 수 있습니다.
 
@@ -83,7 +84,30 @@ public class JoinListener extends craftBukkit {
 }
 ```
 
-### 3. 끝!
+### 3. 인스턴트 작성
+
+기존 Bukkit의 `getInstance()` 대신 `AutoIns`를 사용합니다.
+
+```java
+package example.Rkdgus;
+
+public class Test extends craftBukkit {
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void ontest(PlayerMoveEvent event) {
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+            //예시 문장...
+            };
+        }
+    }.runTaskLater(AutoListen.AutoIns(), 1L);
+}
+
+```
+
+### 4. 끝!
 
 이제 별도의 리스너 등록 코드를 작성할 필요가 없습니다.
 
@@ -112,100 +136,8 @@ AutoListen이 플러그인 내부의 클래스를 탐색하고 자동으로 등�
 - 리스너 클래스에는 접근 가능한 매개변수 없는 생성자가 필요합니다.
 - AutoListen은 다른 플러그인보다 먼저 로드되어야 합니다.
 - 리로드는 Bukkit의 비활성화 및 활성화 방식이며 JAR 파일 자체를 다시 읽지는 않습니다.
+- Kotlin문법은 자체적으로 지원하지는 않습니다, 직접 의존성을 추가해야합니다.
 
----
-# 🇺🇸 English
-
-## Overview
-
-AutoListen is a lightweight Paper plugin designed to automate listener registration.
-
-Simply extend `craftBukkit` in your listener classes. AutoListen will automatically discover and register them without requiring manual registration.
-
-It also provides commands to start, stop, and reload other installed plugins.
-
-## Features
-
-- **Automatic Listener Registration** — Automatically discovers classes extending `craftBukkit`.
-- **No Manual Registration** — No need to call `registerEvents()` manually.
-- **Plugin Management** — Start, stop, and reload plugins through commands.
-- **Easy Integration** — Simple to integrate into existing Paper plugins.
-
-## Installation
-
-1. Download `AutoListen.jar`.
-2. Place it inside your server's `plugins` folder.
-3. Restart your server.
-
-## Getting Started
-
-### 1. Add AutoListen to Your Project
-
-Place `AutoListen.jar` inside your project's `libs` folder.
-
-Add the following to `build.gradle.kts`:
-
-```kotlin
-dependencies {
-    compileOnly(files("libs/AutoListen.jar"))
-}
-```
-
-Add AutoListen as a dependency in `plugin.yml`:
-
-```yaml
-depend: [AutoListen]
-```
-
-### 2. Create a Listener
-
-Extend `craftBukkit` instead of implementing Bukkit's `Listener` directly.
-
-```java
-package example.Event;
-
-import rkdgus.Listener.craftBukkit;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-
-public class JoinListener extends craftBukkit {
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage("Welcome to the server!");
-    }
-}
-```
-
-### 3. Done!
-
-That's all. AutoListen automatically discovers and registers your listener.
-
-No manual registration is required.
-
-## Commands
-
-| Command | Description |
-|---|---|
-| `/listen start <plugin>` | Enables a plugin |
-| `/listen stop <plugin>` | Disables a plugin |
-| `/listen reload <plugin>` | Disables and enables a plugin |
-
-**Permission:** `autolisten.admin` (Default: OP)
-
-## Requirements
-
-- Paper
-- Java 27
-- AutoListen installed on the server
-
-## Notes
-
-- Listener classes must extend `craftBukkit`.
-- Abstract classes are ignored.
-- Listener classes require an accessible no-argument constructor.
-- AutoListen must be loaded before dependent plugins.
-- Reload uses Bukkit's enable/disable mechanism and does not reload the JAR from disk.
 ---
 
 <div align="center">
