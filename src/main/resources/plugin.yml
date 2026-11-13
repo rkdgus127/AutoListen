@@ -1,0 +1,13 @@
+name: AutoListen
+version: 1.45
+main: rkdgus.AutoListen
+api-version: '1.26.3'
+author: rkdgus
+commands:
+  listen:
+    description: Manage plugins and automatic listeners
+    usage: /listen <start|stop|reload> <plugin>
+    permission: autolisten.admin
+permissions:
+  autolisten.admin:
+    default: op
