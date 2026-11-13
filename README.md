@@ -13,6 +13,7 @@
 ![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?style=flat-square)
 ![Platform](https://img.shields.io/badge/Platform-Paper-blue?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-27-orange?style=flat-square)
+![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)
   <img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square" />
 
 </div>
