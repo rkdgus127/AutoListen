@@ -3,7 +3,6 @@ plugins {
 }
 
 group = "rkdgus"
-version = "1.0.0"
 
 repositories {
     mavenCentral()

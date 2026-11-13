@@ -29,8 +29,11 @@ public final class AutoListen extends JavaPlugin implements Listener {
     private final Map<Plugin, List<Listener>> registered = new IdentityHashMap<>();
     private final Set<Plugin> scanned = Collections.newSetFromMap(new IdentityHashMap<>());
 
+    private static AutoListen instance;
+
     @Override
     public void onEnable() {
+        instance = this;
         getServer().getPluginManager().registerEvents(this, this);
         AutoListenCommand command = new AutoListenCommand(this);
         getCommand("listen").setExecutor(command);
@@ -45,6 +48,8 @@ public final class AutoListen extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+
+        instance = null;
         for (List<Listener> listeners : registered.values()) {
             for (Listener listener : listeners) {
                 HandlerList.unregisterAll(listener);
@@ -53,6 +58,10 @@ public final class AutoListen extends JavaPlugin implements Listener {
         registered.clear();
         scanned.clear();
         HandlerList.unregisterAll((Plugin) this);
+    }
+
+    public static AutoListen AutoIns() {
+        return instance;
     }
 
     @org.bukkit.event.EventHandler
