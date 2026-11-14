@@ -8,14 +8,14 @@
 
 **리스너를 일일이 등록하지 마세요. AutoListen이 대신 처리합니다.**
 
-<br>
+<p align="center">
 
-![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?style=flat-square)
-![Platform](https://img.shields.io/badge/Platform-Paper-blue?style=flat-square)
-![Java](https://img.shields.io/badge/Java-27-orange?style=flat-square)
-![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)
+[![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?style=flat-square&logo=minecraft&logoColor=white)](https://www.minecraft.net/)
+[![Platform](https://img.shields.io/badge/Platform-Paper-blue?style=flat-square&logo=papermc&logoColor=white)](https://papermc.io/)
+[![Java](https://img.shields.io/badge/Java-27-orange?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square&logo=gnu&logoColor=white)](https://www.gnu.org/licenses/gpl-3.0.html)
 
-</div>
+</p>
 
 ---
 
