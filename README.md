@@ -2,8 +2,6 @@
 
 # AutoListen
 
-### Automatic Listener Registration for Paper Plugins
-
 <p align="center">
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?logo=microsoft)](https://www.minecraft.net/)
@@ -14,19 +12,6 @@
 </p>
 
 ---
-
-# 🇰🇷 한국어
-
-## 소개
-
-AutoListen은 Paper 서버에서 리스너 등록을 자동화하기 위해 제작된 플러그인입니다.
-
-기존에는 리스너를 만들 때마다 `registerEvents()`를 직접 호출해야 했지만, AutoListen을 사용하면 이러한 작업이 필요하지 않습니다.
-
-단순히 `craftBukkit` 클래스를 상속하는 것만으로 리스너가 자동으로 탐색되고 등록됩니다.
-
-또한 명령어를 통해 다른 플러그인을 시작, 종료, 리로드할 수 있습니다.
-
 ## 주요 기능
 
 - **자동 리스너 등록** — `craftBukkit`을 상속한 클래스를 자동으로 탐색합니다.
@@ -35,19 +20,9 @@ AutoListen은 Paper 서버에서 리스너 등록을 자동화하기 위해 제�
 - **플러그인 관리** — 명령어로 플러그인을 시작, 종료, 리로드할 수 있습니다.
 - **간편한 적용** — 기존 Paper 플러그인에도 쉽게 적용할 수 있습니다.
 
-## 설치 방법
-
-1. `AutoListen.jar` 파일을 다운로드합니다.
-2. 마인크래프트 서버의 `plugins` 폴더에 넣습니다.
-3. 서버를 재시작합니다.
-
 ## 사용 방법
 
-### 1. 프로젝트에 AutoListen 추가
-
-프로젝트 내부에 `libs` 폴더를 만들고 `AutoListen.jar`를 넣습니다.
-
-`build.gradle.kts`에 다음 내용을 추가합니다.
+`build.gradle.kts`
 
 ```kotlin
 dependencies {
@@ -55,13 +30,11 @@ dependencies {
 }
 ```
 
-`plugin.yml`에도 의존성을 추가합니다.
+`plugin.yml`
 
 ```yaml
 depend: [AutoListen]
 ```
-
-### 2. 리스너 작성
 
 기존 Bukkit의 `Listener` 대신 `craftBukkit`을 상속합니다.
 
@@ -80,8 +53,6 @@ public class JoinListener extends craftBukkit {
     }
 }
 ```
-
-### 3. 인스턴트 작성
 
 기존 Bukkit의 `getInstance()` 대신 `AutoIns`를 사용합니다.
 
@@ -114,14 +85,6 @@ public class Test extends craftBukkit {
 | `/listen enable <플러그인명>` | 지정한 플러그인 활성화 |
 | `/listen disable <플러그인명>` | 지정한 플러그인 비활성화 |
 
-**권한:** `autolisten.admin` (기본값: OP)
-
-## 요구 사항
-
-- Paper 서버
-- Java 27
-- 서버에 AutoListen 설치
-
 ## 참고 사항
 
 - 리스너 클래스는 반드시 `craftBukkit`을 상속해야 합니다.
@@ -136,10 +99,6 @@ public class Test extends craftBukkit {
 <div align="center">
 
 ### AutoListen
-
-**Less boilerplate. More development.**
-
-**불필요한 코드는 줄이고, 개발에 집중하세요.**
 
 </div>
 
