@@ -4,10 +4,6 @@
 
 ### Automatic Listener Registration for Paper Plugins
 
-**Stop registering listeners manually. Let AutoListen handle it.**
-
-**리스너를 일일이 등록하지 마세요. AutoListen이 대신 처리합니다.**
-
 <p align="center">
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?logo=microsoft)](https://www.minecraft.net/)
