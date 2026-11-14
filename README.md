@@ -45,7 +45,7 @@ import rkdgus.Listener.craftBukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class JoinListener extends craftBukkit {
+public class JoinListener extends craftBukkit { //Kotlin 호환 
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
@@ -70,7 +70,7 @@ public class Test extends craftBukkit {
             //예시 문장...
             };
         }
-    }.runTaskLater(AutoListen.AutoIns(), 1L);
+    }.runTaskLater(AutoListen.AutoIns(), 1L); //Kotlin 호환
 }
 
 ```
