@@ -10,10 +10,10 @@
 
 <p align="center">
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?style=flat-square&logo=minecraft&logoColor=white)](https://www.minecraft.net/)
-[![Platform](https://img.shields.io/badge/Platform-Paper-blue?style=flat-square&logo=papermc&logoColor=white)](https://papermc.io/)
-[![Java](https://img.shields.io/badge/Java-27-orange?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
-[![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square&logo=gnu&logoColor=white)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?logo=microsoft)](https://www.minecraft.net/)
+[![Platform](https://img.shields.io/badge/Platform-Paper-blue?logo=papermc)](https://papermc.io/)
+[![Java](https://img.shields.io/badge/Java-27-ED8B00.svg?logo=openjdk)](https://www.azul.com/)
+[![License](https://img.shields.io/badge/License-GPL--3.0-blue?logo=gnu)](https://www.gnu.org/licenses/gpl-3.0.html)
 
 </p>
 
