@@ -108,12 +108,6 @@ public class Test extends craftBukkit {
 
 ```
 
-### 4. 끝!
-
-이제 별도의 리스너 등록 코드를 작성할 필요가 없습니다.
-
-AutoListen이 플러그인 내부의 클래스를 탐색하고 자동으로 등록합니다.
-
 ## 명령어
 
 | 명령어 | 설명 |
