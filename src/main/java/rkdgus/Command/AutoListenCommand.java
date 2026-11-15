@@ -33,8 +33,9 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (target == plugin) {
-            sender.sendMessage("§cAutoListen 자체는 제어할 수 없습니다.");
+
+        if (target == plugin || target.getName().equalsIgnoreCase("Konfig")) {
+            sender.sendMessage("§c해당 플러그인은 listen 명령어로 제어할 수 없습니다.");
             return true;
         }
 
