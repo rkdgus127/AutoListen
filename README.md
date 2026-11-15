@@ -4,10 +4,9 @@
 
 <p align="center">
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen?logo=microsoft)](https://www.minecraft.net/)
-[![Platform](https://img.shields.io/badge/Platform-Paper-blue?logo=papermc)](https://papermc.io/)
-[![Java](https://img.shields.io/badge/Java-27-ED8B00.svg?logo=openjdk)](https://www.azul.com/)
-[![License](https://img.shields.io/badge/License-GPL--3.0-blue?logo=gnu)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![Gradle](https://img.shields.io/badge/Gradle-9.8-blue?style=flat-square&logo=gradle&logoColor=blue)](https://gradle.org)
+[![Java](https://img.shields.io/badge/Java-27-ED8B00.svg?logo=openjdk&logoColor=orange)](https://www.azul.com/)
+[![License](https://img.shields.io/badge/License-GPL--3.0-green?logo=gnu&logoColor=green)](https://www.gnu.org/licenses/gpl-3.0.html)
 
 </p>
 
