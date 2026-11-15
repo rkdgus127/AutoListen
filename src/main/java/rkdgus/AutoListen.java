@@ -120,7 +120,7 @@ public final class AutoListen extends JavaPlugin implements Listener {
         getLogger().info(plugin.getName() + " 자동 리스너 등록 완료: " + listeners.size() + "개");
     }
 
-    private List<String> findClasses(Plugin plugin) throws IOException, URISyntaxException {
+    public List<String> findClasses(Plugin plugin) throws IOException, URISyntaxException {
         Path location = Path.of(plugin.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
         List<String> classes = new ArrayList<>();
 

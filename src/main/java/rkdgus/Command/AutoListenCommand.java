@@ -1,11 +1,13 @@
 package rkdgus.Command;
 
 import rkdgus.AutoListen;
+import rkdgus.Listener.craftBukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginDescriptionFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,52 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
 
     public AutoListenCommand(AutoListen plugin) {
         this.plugin = plugin;
+    }
+
+    private boolean isProtected(Plugin target) {
+        String name = target.getName();
+
+        if (target == plugin
+                || name.equalsIgnoreCase("Konfig")
+                || name.equalsIgnoreCase("AutoListen")) {
+            return true;
+        }
+
+        PluginDescriptionFile description = target.getDescription();
+
+        List<String> dependencies = new ArrayList<>();
+        dependencies.addAll(description.getDepend());
+        dependencies.addAll(description.getSoftDepend());
+        dependencies.addAll(description.getLoadBefore());
+
+        boolean dependsOnAutoListen = dependencies.stream()
+                .anyMatch(dependency -> dependency.equalsIgnoreCase("AutoListen"));
+
+        if (!dependsOnAutoListen) {
+            return true;
+        }
+
+        return !hasCraftBukkitListener(target);
+    }
+
+    private boolean hasCraftBukkitListener(Plugin target) {
+        try {
+            for (String className : plugin.findClasses(target)) {
+                Class<?> type = Class.forName(
+                        className,
+                        false,
+                        target.getClass().getClassLoader()
+                );
+
+                if (type != craftBukkit.class
+                        && craftBukkit.class.isAssignableFrom(type)) {
+                    return true;
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+
+        return false;
     }
 
     @Override
@@ -33,8 +81,7 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-
-        if (target == plugin || target.getName().equalsIgnoreCase("Konfig")) {
+        if (isProtected(target)) {
             sender.sendMessage("§c해당 플러그인은 listen 명령어로 제어할 수 없습니다.");
             return true;
         }
@@ -114,7 +161,8 @@ public final class AutoListenCommand implements CommandExecutor, TabCompleter {
             for (Plugin target : plugin.getServer().getPluginManager().getPlugins()) {
                 String name = target.getName();
 
-                if (target != plugin && name.toLowerCase(Locale.ROOT).startsWith(current)) {
+                if (!isProtected(target)
+                        && name.toLowerCase(Locale.ROOT).startsWith(current)) {
                     completions.add(name);
                 }
             }
