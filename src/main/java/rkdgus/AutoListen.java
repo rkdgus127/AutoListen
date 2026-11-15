@@ -2,6 +2,8 @@ package rkdgus;
 
 import org.bukkit.event.EventHandler;
 import rkdgus.Command.AutoListenCommand;
+import rkdgus.Event.ListenerRegisterEvent;
+import rkdgus.Event.ListenerUnregisterEvent;
 import rkdgus.Listener.craftBukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -104,6 +106,7 @@ public final class AutoListen extends JavaPlugin implements Listener {
 
                     getServer().getPluginManager().registerEvents(listener, this);
                     listeners.add(listener);
+                    getServer().getPluginManager().callEvent(new ListenerRegisterEvent(plugin, listener));
                 } catch (NoSuchMethodException ignored) {
                 } catch (Throwable exception) {
                     getLogger().warning("리스너 등록 실패: " + plugin.getName() + " / " + className + " / " + exception.getClass().getSimpleName());
@@ -160,14 +163,21 @@ public final class AutoListen extends JavaPlugin implements Listener {
 
     public void unregister(Plugin plugin) {
         scanned.remove(plugin);
+
         List<Listener> listeners = registered.remove(plugin);
         if (listeners == null) {
             return;
         }
 
         for (Listener listener : listeners) {
+            getServer().getPluginManager().callEvent(new ListenerUnregisterEvent(plugin, listener));
             HandlerList.unregisterAll(listener);
         }
+    }
+
+    public List<Listener> getRegistered(Plugin plugin) {
+        List<Listener> listeners = registered.get(plugin);
+        return listeners == null ? List.of() : List.copyOf(listeners);
     }
 
     public Plugin findPlugin(String name) {
